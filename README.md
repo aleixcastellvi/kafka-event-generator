@@ -6,7 +6,8 @@ This repository contains multiple event formats to be sent to the configured top
 
 Below are the different available applications for sending events:
 
-* [Streaming Banking Event App](/streaming-banking-event/README.md)
+* [Streaming User Event App](/streaming-user-event/user-event-description.md)
+* [Streaming Banking Event App](/streaming-banking-event/banking-event-description.md)
 
 ## Running the app
 
@@ -33,5 +34,5 @@ pip install -r requirements.txt
 Run the app
 
 ```bash
-python streaming-banking-event/banking-app.py
+python streaming-user-event/user-event-app.py
 ```

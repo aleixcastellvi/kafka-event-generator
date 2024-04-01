@@ -1,4 +1,3 @@
-import config
 import random
 import time
 import uuid
@@ -9,6 +8,9 @@ from confluent_kafka import KafkaError
 
 
 # Constants
+KAFKA_URI = "localhost:9092"
+TOPIC_BANKING = "streaming-event"
+
 TRANSACTIONS_STATUS = ["Completed", "Cancelled"]
 WEIGHTS_TRANSACTION = [0.9, 0.1] # 90% probability of completed transactions, 10% of cancelled transactions
 
@@ -31,7 +33,7 @@ def setup_kafka_producer():
     Set up the Kafka producer
     """
     return kafka.KafkaProducer(
-        bootstrap_servers = config.KAFKA_URI, 
+        bootstrap_servers = KAFKA_URI, 
         api_version = '0.9', 
         value_serializer = lambda v: json.dumps(v).encode('utf-8'))
 
@@ -113,7 +115,7 @@ try:
 
         }
 
-        send_to_kafka(config.TOPIC_BANKING, event_transaction)
+        send_to_kafka(TOPIC_BANKING, event_transaction)
         #print(json.dumps(event_transaction, indent=2))
         print(f"Transaction #{event_sended} sent to the producer")
         event_sended += 1
