@@ -9,7 +9,7 @@ from confluent_kafka import KafkaError
 
 # Constants
 KAFKA_URI = "localhost:9092"
-TOPIC_BANKING = "streaming-event"
+TOPIC = "streaming-event"
 
 TRANSACTIONS_STATUS = ["Completed", "Cancelled"]
 WEIGHTS_TRANSACTION = [0.9, 0.1] # 90% probability of completed transactions, 10% of cancelled transactions
@@ -115,7 +115,7 @@ try:
 
         }
 
-        send_to_kafka(TOPIC_BANKING, event_transaction)
+        send_to_kafka(TOPIC, event_transaction)
         #print(json.dumps(event_transaction, indent=2))
         print(f"Transaction #{event_sended} sent to the producer")
         event_sended += 1

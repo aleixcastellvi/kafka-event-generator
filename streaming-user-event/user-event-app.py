@@ -9,7 +9,7 @@ from confluent_kafka import KafkaError
 
 # Constants
 KAFKA_URI = "localhost:9092"
-TOPIC_BANKING = "streaming-event"
+TOPIC = "streaming-event"
 
 def setup_kafka_producer():
     """
@@ -55,9 +55,9 @@ try:
             "user_id": "user" + str(random.randint(1, 50))
         }
 
-        send_to_kafka(TOPIC_BANKING, event)
+        send_to_kafka(TOPIC, event)
 
-        print(f"Event #{event_sended} sended to the Topic {TOPIC_BANKING}")
+        print(f"Event #{event_sended} sended to the Topic {TOPIC}")
         
         event_sended += 1
         time.sleep(3)
