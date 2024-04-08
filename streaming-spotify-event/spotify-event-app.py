@@ -1,10 +1,9 @@
 import random
 import time
-import uuid
 import json
-import datetime
 import kafka
 from confluent_kafka import KafkaError
+from uuid import uuid4
 
 
 # Constants
@@ -37,30 +36,38 @@ def send_to_kafka(topic, event_data):
         print(f"Error sending to Kafka: {e}")
         return None
 
-event_sended = 1
+songs = {
+    "Drake": ["One Dance", "Rich Baby Daddy", "IDGAF"],
+    "Taylor Swift": ['Cruel Summer', 'Lover', 'Anti-Hero'],
+    "Ariana Grande": ["yes, and?", "we can't be friends", "the boy is mine"]
+}
 
 # Generate data and send to kafka topic
 try:
+    event_sent = 1
+
+    kafka_producer = setup_kafka_producer()
+
     while True:
-
-        kafka_producer = setup_kafka_producer()
-
-        ts_event = int(time.time() * 1000) # timestamp in milliseconds
-        dt_event = datetime.datetime.fromtimestamp(ts_event/1000)
-
+        artist = random.choice(list(songs.keys()))
+        song = random.choice(songs[artist])
+        
         event = {
-            "_id": str(uuid.uuid4()),
-            "timestamp": ts_event, 
-            "dataitem": str(dt_event),
-            "user_id": "user" + str(random.randint(1, 50))
+            'user': "user-" + str(uuid4()),
+            "timestamp": int(time.time() * 1000),
+            "artist": artist,
+            "song": song
         }
 
         send_to_kafka(TOPIC, event)
 
-        print(f"Event #{event_sended} sended to the Topic {TOPIC}")
+        print(f"Event #{event_sent} sent to the Topic {TOPIC}")
         
-        event_sended += 1
+        event_sent += 1
         time.sleep(3)
 
 except KeyboardInterrupt:
+    print("Interrupt detected. Stopping event generation.")
+
+finally:
     kafka_producer.close()

@@ -6,7 +6,7 @@ This repository contains multiple event formats to be sent to the configured top
 
 Below are the different available applications for sending events:
 
-* [Streaming User Event App](/streaming-user-event/user-event-description.md)
+* [Streaming Spotify Event App](/streaming-spotify-event/spotify-event-description.md)
 * [Streaming Banking Event App](/streaming-banking-event/banking-event-description.md)
 
 ## Running the app
@@ -34,5 +34,5 @@ pip install -r requirements.txt
 Run the app
 
 ```bash
-python streaming-user-event/user-event-app.py
+python streaming-spotify-event/spotify-event-app.py
 ```
